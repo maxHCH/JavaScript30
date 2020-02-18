@@ -57,7 +57,24 @@
 
 <script>
   const keyArray = document.querySelectorAll('.key')
-  console.log(keyArray)
+  const audioArray = document.querySelectorAll('audio')
+  let keydownHandler = e => {
+    const keyVal = e.which
+    keyArray.forEach(k => {
+      if(keyVal === parseInt(k.dataset.key)) {
+        return audioHandler(k.dataset.key)
+      }
+    })
+  }
+  let audioHandler = key => {
+    audioArray.forEach(a => {
+      if(key === a.dataset.key){
+        a.setAttribute('autoplay',true)
+        console.log(a.autoplay)
+      }
+    })
+  }
+  window.addEventListener('keydown',keydownHandler)
 </script>
 
 
