@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS + CSS Clock</title>
+</head>
+<body>
+
+
+    <div class="clock">
+      <div>
+        <div class="hour12"></div>
+        <div class="hour1"></div>
+        <div class="hour2"></div>
+        <div class="hour3"></div>
+        <div class="hour4"></div>
+        <div class="hour5"></div>
+    </div>
+      <div class="clock-face">
+        <div class="hand hour-hand"></div>
+        <div class="hand min-hand"></div>
+        <div class="hand second-hand"></div>
+      </div>
+    </div>
+
+
+  <style>
+    html {
+      font-family: 'helvetica neue';
+      text-align: center;
+      font-size: 10px;
+    }
+
+    body {
+      margin: 0;
+      font-size: 2rem;
+      display: flex;
+      flex: 1;
+      min-height: 100vh;
+      align-items: center;
+    }
+
+    .clock {
+      width: 30rem;
+      height: 30rem;
+      border: 20px solid white;
+      border-radius: 50%;
+      margin: 50px auto;
+      position: relative;
+      padding: 2rem;
+      box-shadow:
+        0 0 0 4px rgba(0,0,0,0.1),
+        inset 0 0 0 3px #EFEFEF,
+        inset 0 0 10px black,
+        0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .clock-face {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform: translateY(-3px); /* account for the height of the clock hands */
+    }
+
+    .hand {
+      width: 1%;
+      height: 50%;
+      background: rgb(190, 190, 190);
+      position: absolute;
+      left: 50%;
+    }
+    .hour-hand {
+      transform-origin: 0 50%;
+    }
+    .min-hand {
+      transform-origin: 0 0;
+    }
+    .second-hand {
+      transform-origin: 0 0;
+      background-color: rgb(255, 97, 97);
+    }
+    .hour12, .hour1, .hour2, .hour3, .hour4, .hour5 {
+      height: 1%;
+      width: 52vmin;
+      background: transparent;
+      border-left: 4vmin solid rgb(121, 121, 121);
+      border-right: 4vmin solid rgb(121, 121, 121);
+      transform-origin: -0% -50%;
+      top: 50%;
+      left: 51%;
+      position: absolute;
+    }
+    .hour12 {
+      transform: rotateZ(90deg) translate(-50%, -50%);
+    }
+    .hour1 {
+      transform: rotateZ(-30deg) translate(-50%, -50%);
+    }
+    .hour2 {
+      transform: rotateZ(-60deg) translate(-50%, -50%);
+    }
+    .hour3 {
+      transform: rotateZ(0deg) translate(-50%, -50%);
+    }
+    .hour4 {
+      transform: rotateZ(30deg) translate(-50%, -50%);
+    }
+    .hour5 {
+      transform: rotateZ(60deg) translate(-50%, -50%);
+    }
+
+  </style>
+
+  <script>
+    const min = document.querySelector('.min-hand')
+    const sec = document.querySelector('.second-hand')
+    const hour = document.querySelector('.hour-hand')
+    const date = new Date()
+    let nowMin = date.getMinutes()
+    let nowHour = date.getHours()
+    let nowSec = date.getSeconds()
+    console.log(nowHour,nowMin,nowSec)
+    sec.style.transform = `rotateZ(${nowSec *  6 }deg)`
+    min.style.transform = `rotateZ(${nowMin *  6 }deg)`
+    hour.style.transform = `rotateZ(${nowHour *  30 }deg)`
+  </script>
+</body>
+</html>
