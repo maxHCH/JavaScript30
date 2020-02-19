@@ -58,22 +58,28 @@
 <script>
   const keyArray = document.querySelectorAll('.key')
   const audioArray = document.querySelectorAll('audio')
-  let keydownHandler = e => {
+  const keydownHandler = e => {
     const keyVal = e.which
     keyArray.forEach(k => {
       if(keyVal === parseInt(k.dataset.key)) {
+        k.classList.add('playing')
         return audioHandler(k.dataset.key)
       }
     })
   }
-  let audioHandler = key => {
+  const removeTransition = e => {
+    if (e.propertyName !== 'transform') return;
+    e.target.classList.remove('playing');
+  }
+  const audioHandler = key => {
     audioArray.forEach(a => {
       if(key === a.dataset.key){
-        a.setAttribute('autoplay',true)
-        console.log(a.autoplay)
+        a.currentTime = 0
+        a.play()
       }
     })
   }
+  keyArray.forEach(key => key.addEventListener('transitionend', removeTransition))
   window.addEventListener('keydown',keydownHandler)
 </script>
 
