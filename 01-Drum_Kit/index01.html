@@ -56,17 +56,18 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
-  const keyArray = document.querySelectorAll('.key')
-  const audioArray = document.querySelectorAll('audio')
-  const keydownHandler = e => {
-    const keyVal = e.which
-    keyArray.forEach(k => {
-      if(keyVal === parseInt(k.dataset.key)) {
-        k.classList.add('playing')
-        return audioHandler(k.dataset.key)
-      }
-    })
-  }
+  ;(function(){
+    const keyArray = document.querySelectorAll('.key')
+    const audioArray = document.querySelectorAll('audio')
+    const keydownHandler = e => {
+      const keyVal = e.which
+      keyArray.forEach(k => {
+        if(keyVal === parseInt(k.dataset.key)) {
+          k.classList.add('playing')
+          return audioHandler(k.dataset.key)
+        }
+      })
+    }
   const removeTransition = e => {
     if (e.propertyName !== 'transform') return;
     e.target.classList.remove('playing');
@@ -81,6 +82,7 @@
   }
   keyArray.forEach(key => key.addEventListener('transitionend', removeTransition))
   window.addEventListener('keydown',keydownHandler)
+  })()
 </script>
 
 
