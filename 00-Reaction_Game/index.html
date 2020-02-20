@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>反應測試</title>
+</head>
+<body>
+  <div class="content">
+    <div class="content-area">
+      <h1 class="content-text">畫面變色時請點擊</h1>
+      <button class="content-btn content-btn-display">再玩一次</button>
+    </div>
+  </div>
+</body>
+</html>
+
+<style>
+  .content {
+    width: 100%;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .content-area {
+    text-align: center;
+  }
+  .content-btn-display {
+    display: none;
+  }
+</style>
+
+<script>
+  const body = document.querySelector('body')
+  const btn = document.querySelector('.content-btn')
+  function randomSecHandler(){
+    return Math.floor((Math.random()*5 + 1)*1000)
+  }
+  const sec = randomSecHandler()
+  function replaceBGC(){
+    body.style.backgroundColor = 'rgb(0, 255, 85)'
+  }
+  function clickBodyHandler(e){
+    const reaction = (Math.floor(e.timeStamp - sec)/1000).toFixed(2)
+    reaction > 0 ? alert(`反應時間為${reaction}秒`) : alert('還沒變色，你按太快了喔！')
+    btn.classList.remove('content-btn-display')
+    body.removeEventListener('click',clickBodyHandler)
+  }
+  function resetGameHandler(){
+    event.stopPropagation()
+    btn.classList.add('content-btn-display')
+    location.reload()
+  }
+  setTimeout(() => {
+    replaceBGC()
+  },sec)
+  body.addEventListener('click',clickBodyHandler)
+  btn.addEventListener('click',resetGameHandler)
+</script>
